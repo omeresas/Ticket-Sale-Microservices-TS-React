@@ -99,6 +99,62 @@ const App = () => {
 }"
 ```
 
-3. Frontend app now should look like:
+3. Use `useState` hook inside `PostCreate` component to add some state, without need to convert it to a class. Define a `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make requests and use async-await syntax.
+
+```js
+import React from "react";
+import { useState } from "react";
+import axios from "axios";
+
+const PostCreate = () => {
+  const [title, setTitle] = useState(""); //initialize it to empty string
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    await axios.post("http://localhost:4000/posts", {
+      title,
+    });
+
+    setTitle("");
+  };
+
+  return (
+    <div>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <label>Title</label>
+          <input
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            className="form-control"
+          />
+        </div>
+        <button className="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  );
+};
+
+export default PostCreate;
+```
+
+4. Try submitting a post and handle the CORS error occured after the attempt to make a request to the domain `localhost:4000` from a different domain `localhost:3000`. We have to set CORS headers in `posts` and `comments` apps. For both apps, first, install `cors` dependency:
+
+```shell
+npm install cors
+```
+
+Then, use `cors` middleware:
+
+```js
+const cors = require("cors");
+const app = express();
+app.use(cors());
+```
+
+5. Frontend app now should look like below and submit posts without CORS errors:
 
 ![this](../screenshots/01_PostCreate.png)
