@@ -99,4 +99,6 @@ const App = () => {
 }"
 ```
 
-3. Frontend app now should look like ![this](../screenshots/01_PostCreate.png):
+3. Frontend app now should look like:
+
+![this](../screenshots/01_PostCreate.png)
