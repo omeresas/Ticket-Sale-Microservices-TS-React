@@ -5,3 +5,4 @@ This folder contains notes that were created while implementing the simple blog 
 ### List of Notes
 
 1. [Project Setup](project_setup.md)
+2. [Start with simple Posts app](posts_app.md)
