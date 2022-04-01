@@ -1,3 +1,5 @@
+## Setup client, posts and comments apps
+
 ### Initialize Git repository and connect it to GitHub:
 
 1. Inside `mini-blog-app`, initialize Git repository:
@@ -32,7 +34,7 @@ git remote add origin git@github.com:omeresas/nodejs-microservices.git
 git push -u origin master
 ```
 
-### Initilize Client app:
+### Initilize client React app:
 
 1. Inside `mini-blog-app`, create a React app named `client`.
 
@@ -40,7 +42,7 @@ git push -u origin master
 npx create-react-app client
 ```
 
-### Initilize Posts app:
+### Initilize posts Express app:
 
 1. Inside `mini-blog-app`, create a folder named `posts` and enter into it:
 
@@ -56,9 +58,9 @@ npm init -y
 npm install express cors axios nodemon
 ```
 
-### Initilize Comments app:
+### Initilize comments Express app:
 
-1. Do the same for `comments` app:
+1. Go back to `mini-blog-app` folder and do the same for `comments` app:
 
 ```shell
 cd ..

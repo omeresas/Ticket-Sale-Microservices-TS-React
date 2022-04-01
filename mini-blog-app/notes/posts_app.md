@@ -1,6 +1,6 @@
-### Implement simple Express app:
+### Start implementing the posts app:
 
-1. Use `randomBytes` from `crypto` to generate ids and `body-parser` middleware to parse incoming request bodies in a middleware before your handlers, available under the `req.body` property.
+1. Use `randomBytes` from `crypto` to generate `id`s and `body-parser` middleware to parse incoming request bodies in a middleware before your handlers, available under the `req.body` property.
 
 ```js
 const express = require("express");
@@ -39,4 +39,10 @@ app.listen(4000, () => {
   "scripts": {
     "start": "nodemon index.js"
   }
+```
+
+3. Start `posts` app with:
+
+```shell
+npm start
 ```
