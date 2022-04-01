@@ -1,4 +1,4 @@
-## Setup client, posts and comments apps
+## Setup the client, posts and comments apps
 
 ### Initialize Git repository and connect it to GitHub:
 
