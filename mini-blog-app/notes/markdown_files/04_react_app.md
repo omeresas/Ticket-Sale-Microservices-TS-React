@@ -1,4 +1,4 @@
-## Create first React component
+## Create first React component PostCreate
 
 ### Start implementing the client app:
 
@@ -99,7 +99,9 @@ const App = () => {
 }"
 ```
 
-3. Use `useState` hook inside `PostCreate` component to add some state, without need to convert it to a class. Define a `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make requests and use async-await syntax.
+### useState Hook and CORS errors:
+
+1. Use `useState` hook inside `PostCreate` component to add some state, without the need to convert it to a class. Define an `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make requests and use async-await syntax.
 
 ```js
 import React from "react";
@@ -141,7 +143,7 @@ const PostCreate = () => {
 export default PostCreate;
 ```
 
-4. Try submitting a post and handle the CORS error occured after the attempt to make a request to the domain `localhost:4000` from a different domain `localhost:3000`. We have to set CORS headers in `posts` and `comments` apps. For both apps, first, install `cors` dependency:
+2. Try submitting a post and handle the CORS error occured after the attempt to make a request to the domain `localhost:4000` from a different domain `localhost:3000`. We have to set CORS headers in `posts` and `comments` apps. For both apps, first, install `cors` dependency:
 
 ```shell
 npm install cors
@@ -155,6 +157,6 @@ const app = express();
 app.use(cors());
 ```
 
-5. Frontend app now should look like below and submit posts without CORS errors:
+3. Frontend app now should look like below and submit posts without CORS errors:
 
 ![this](../screenshots/01_PostCreate.png)
