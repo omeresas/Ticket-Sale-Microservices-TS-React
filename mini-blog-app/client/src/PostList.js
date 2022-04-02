@@ -23,7 +23,7 @@ const PostList = () => {
       <div
         className="card"
         style={{ width: "30%", marginBottom: "20px" }}
-        key={posts.id} // because we generate list of elements, react expects key property on each element
+        key={post.id} // because we generate list of elements, react expects key property on each element
       >
         <div className="card-body">
           <h3>{post.title}</h3>

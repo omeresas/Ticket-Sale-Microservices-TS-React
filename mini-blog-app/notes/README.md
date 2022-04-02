@@ -4,10 +4,8 @@ This folder contains notes that were created while implementing the simple blog 
 
 ### List of Notes
 
-1. [Setup the client, posts and comments apps](markdown_files/01_project_setup.md)
-2. [Implement the posts app and test manually](markdown_files/02_posts_app.md)
-3. [Do the same for the comments app](markdown_files/03_comments_app.md)
-4. [Create first React component PostCreate](markdown_files/04_react_app.md)
-5. [Implement the PostList component to render posts](markdown_files/05_PostList_component.md)
-6. [Render CommentCreate and CommentList inside each PostList component](markdown_files/06_CommentCreate_and_List.md)
-7. [Introducing Event Bus and CQRS concepts](markdown_files/07_event_bus_cqrs.md)
+1. [Setup and implement the client, posts and comments apps](markdown_files/01_project_setup.md)
+2. [Create first React component PostCreate](markdown_files/04_react_app.md)
+3. [Implement the PostList component to render posts](markdown_files/05_PostList_component.md)
+4. [Render CommentCreate and CommentList inside each PostList component](markdown_files/06_CommentCreate_and_List.md)
+5. [Introducing Event Bus and CQRS concepts](markdown_files/07_event_bus_cqrs.md)
