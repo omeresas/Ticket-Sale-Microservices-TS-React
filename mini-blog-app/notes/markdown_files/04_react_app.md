@@ -101,7 +101,7 @@ const App = () => {
 
 ### useState Hook and CORS errors:
 
-1. Use `useState` hook inside `PostCreate` component to add some state, without the need to convert it to a class. Define an `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make requests and use async-await syntax.
+1. Use `useState` hook inside `PostCreate` component to add some state, without the need to convert it to a class. Define an `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make POST requests to `posts` app and use async-await syntax.
 
 ```js
 import React from "react";

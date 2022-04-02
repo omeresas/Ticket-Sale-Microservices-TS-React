@@ -1,6 +1,6 @@
 ## Create the PostList component
 
-Implement `PostList` functional component that makes GET requests to `posts` app and renders the posts in Bootstrap cards.
+1. Implement `PostList` functional component that makes GET requests to `posts` app and renders the posts in Bootstrap cards.
 
 ```js
 import React from "react";
@@ -45,6 +45,6 @@ const PostList = () => {
 export default PostList;
 ```
 
-Posts are now rendered only with their titles like below
+2. Posts are now rendered only with their titles like below:
 
 ![this](../screenshots/02_PostList.png)
