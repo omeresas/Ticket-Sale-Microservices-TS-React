@@ -54,7 +54,7 @@ export default CommentCreate;
 
 ### Create the CommentList component
 
-1. Similary, `CommentList` component needs `postId` prop, implement similary:
+1. Likewise, `CommentList` component needs `postId` prop, implement similary to make GET request to `comments` app:
 
 ```js
 import React from "react";
