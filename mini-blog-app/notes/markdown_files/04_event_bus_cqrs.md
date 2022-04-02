@@ -37,18 +37,17 @@ Advantages and disadvantages of introducing CQRS are:
 
 ```js
 const express = require("express");
-const bodyParser = require("body-parser");
 const axios = require("axios");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.get("/events", (req, res) => {
+app.post("/events", (req, res) => {
   const event = req.body;
 
   axios.post("http://localhost:4000/events", event);
   axios.post("http://localhost:4001/events", event);
-  axios.post("http://localhost:4002/events", event);
+  axios.post("http://localhost:4002/events", event); // for query service
 
   res.send({ status: "OK" });
 });
@@ -58,35 +57,82 @@ app.listen(4005, () => {
 });
 ```
 
-2. Whenever a post is created, emit a "PostCreated" event to the `event-bus` from `posts` service. Don't forget to add `async` keyword to callback function.
+2. Whenever a post is created, emit a `PostCreated` event to the `event-bus` from `posts` service. Don't forget to add `async` keyword to callback function.
 
 ```js
-await axios
-  .post("http://localhost:4005/events", {
-    type: "PostCreated",
-    data: {
-      id,
-      title,
-    },
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+await axios.post("http://localhost:4005/events", {
+  type: "PostCreated",
+  data: {
+    id,
+    title,
+  },
+});
 ```
 
-3. Similary, emit a "CommentCreated" event with comment data from `comments` service.
+3. Similary, emit a `CommentCreated` event with comment data from `comments` service.
 
 ```js
-await axios
-  .post("http://localhost:4005/events", {
-    type: "CommentCreated",
-    data: {
-      id: commentId,
-      content,
-      postId: req.params.id,
-    },
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+await axios.post("http://localhost:4005/events", {
+  type: "CommentCreated",
+  data: {
+    id: commentId,
+    content,
+    postId: req.params.id,
+  },
+});
+```
+
+4. For now, simply print the event type in `posts` and `comments` services when an event is received.
+
+````js
+app.post("/events", (req, res) => {
+  console.log("Received event", req.body.type);
+
+  res.send({});
+});```
+````
+
+### Implement Query Service
+
+1. Implement `query` service to "persist" in memory both posts and associated comments in an object. Process `PostCreated` and `CommentCreated` events.
+
+```js
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+
+const posts = {};
+
+app.get("/posts", (req, res) => {
+  res.send(posts);
+});
+
+app.post("/events", (req, res) => {
+  const { type, data } = req.body;
+
+  if (type === "PostCreated") {
+    const { id, title } = data;
+
+    posts[id] = {
+      id,
+      title,
+      comments: [],
+    };
+  }
+
+  if (type === "CommentCreated") {
+    const { id, content, postId } = data;
+
+    posts[postId].comments.push({ id, content });
+  }
+
+  res.send({});
+});
+
+app.listen(4002, () => {
+  console.log("Listening on 4002");
+});
 ```

@@ -143,7 +143,7 @@ const PostCreate = () => {
 export default PostCreate;
 ```
 
-2. Try submitting a post and handle the CORS error occured after the attempt to make a request to the domain `localhost:4000` from a different domain `localhost:3000`. We have to set CORS headers in `posts` and `comments` apps. For both apps, first, install `cors` dependency:
+2. Try submitting a post and handle the CORS error thrown automatically by browser after the attempt to make a request to the domain `localhost:4000` from a different domain `localhost:3000`. We have to set CORS headers in `posts` and `comments` apps. For both apps, first, install `cors` dependency:
 
 ```shell
 npm install cors

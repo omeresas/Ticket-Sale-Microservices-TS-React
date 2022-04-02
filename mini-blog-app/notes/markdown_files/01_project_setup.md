@@ -74,15 +74,14 @@ npm install express cors axios nodemon
 
 ### Start implementing the posts app:
 
-1. Create an `index.js` file inside `posts` folder, use `randomBytes` from `crypto` to generate `id`s and `body-parser` middleware to parse incoming request bodies in a middleware before your handlers, available under the `req.body` property.
+1. Create an `index.js` file inside `posts` folder, use `randomBytes` from `crypto` to generate `id`s and `express.json()` middleware to parse incoming request bodies in a middleware before your handlers, available under the `req.body` property.
 
 ```js
 const express = require("express");
 const { randomBytes } = require("crypto");
-const bodyParser = require("body-parser");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 const posts = {};
 
@@ -165,10 +164,9 @@ npm start
 ```js
 const express = require("express");
 const { randomBytes } = require("crypto");
-const bodyParser = require("body-parser");
 
 const app = express();
-app.use(bodyParser.json());
+app.use(express.json());
 
 const posts = {};
 
