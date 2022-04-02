@@ -14,8 +14,12 @@ One way to get all posts with all their associated comments is to possibly make 
 
 A better way to solve this issue is to use **asynchronous messaging** by means of introducing a helper app called `event bus` that acts a message broker between the apps...
 
-<img align="center" src="../screenshots/05_Async_arch.png" alt="drawing" width="500"/>
+<p align="center">
+<img src="../screenshots/05_Async_arch.png" alt="drawing" width="500"/>
+</p>
 
 ...and another app called `query` to serve only the read attempts from client, separating Command and Query purposes as advised by CQRS design pattern.
 
-<img align="center" src="../screenshots/06_Query_service.png" alt="drawing" width="500"/>
+<p align="center">
+<img src="../screenshots/06_Query_service.png" alt="drawing" width="500"/>
+</p>
