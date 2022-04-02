@@ -97,6 +97,6 @@ export default CommentList;
 </div>
 ```
 
-3. Now, the frontend app should create and list comments now like this:
+3. Now, the frontend app should create and list comments like this:
 
 ![this](../screenshots/03_CommentCreateList.png)
