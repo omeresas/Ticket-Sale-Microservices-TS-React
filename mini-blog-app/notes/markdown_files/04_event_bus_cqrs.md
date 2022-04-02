@@ -33,7 +33,7 @@ Advantages and disadvantages of introducing CQRS are:
 
 ### Implement a simple event bus in Express
 
-1. Create a separate app called `event-bus` just like `posts` and `comments` app.
+1. Create a separate app called `event-bus` just like `posts` and `comments` app. Catch errors in case promises are rejected, so that the failure of a service does not crash the `event-bus` broker, making each service to be more independent.
 
 ```js
 const express = require("express");
@@ -45,9 +45,17 @@ app.use(express.json());
 app.post("/events", (req, res) => {
   const event = req.body;
 
-  axios.post("http://localhost:4000/events", event);
-  axios.post("http://localhost:4001/events", event);
-  axios.post("http://localhost:4002/events", event); // for query service
+  console.log(event);
+
+  axios.post("http://localhost:4000/events", event).catch((err) => {
+    console.log(err);
+  });
+  axios.post("http://localhost:4001/events", event).catch((err) => {
+    console.log(err);
+  });
+  axios.post("http://localhost:4002/events", event).catch((err) => {
+    console.log(err);
+  });
 
   res.send({ status: "OK" });
 });
@@ -94,7 +102,7 @@ app.post("/events", (req, res) => {
 
 ### Implement Query Service
 
-1. Implement `query` service to "persist" in memory both posts and associated comments in an object. Process `PostCreated` and `CommentCreated` events.
+Implement `query` service to "persist" in memory both posts and associated comments in an object. Process `PostCreated` and `CommentCreated` events. Use `cors` so that the browser allows GET requests from `localhost:3000`.
 
 ```js
 const express = require("express");
@@ -136,3 +144,34 @@ app.listen(4002, () => {
   console.log("Listening on 4002");
 });
 ```
+
+### Modify React App to make requests to Query service for read purposes
+
+1. In `PostList` component, make GET request to `query` service and pass comments itself as props to `CommentList` component, so that for read purposes only one request to back-end (to `query` service) is made.
+
+```js
+const fetchPosts = async () => {
+  const res = await axios.get("http://localhost:4002/posts");
+
+  setPosts(res.data);
+};
+```
+
+2. Delete from `CommentList` component the requests to `comments` service, use props as comment content.
+
+```js
+import React from "react";
+
+const CommentList = ({ comments }) => {
+  // because we generate list of elements, react expects key property on each element
+  const renderedComments = comments.map((comment) => {
+    return <li key={comment.id}>{comment.content}</li>;
+  });
+
+  return <ul>{renderedComments}</ul>;
+};
+
+export default CommentList;
+```
+
+3. Now, even if `posts` and `comments` services crash, the created posts and comments can be served via `query` service to front-end. Another scenario is that the `comments` service can be down and new posts can be created through `posts` app and stored by `query` app. After that, if `posts` app crash and `comments` app starts running, new comments can be made through `comments` service to posts created by `posts` service when it was alive.
