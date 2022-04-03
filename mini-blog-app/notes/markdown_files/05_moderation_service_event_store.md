@@ -1,6 +1,8 @@
-## Adding Comment Moderation Feature
+## Moderating comments in moderation service, storing events in event bus and consuming events in query service
 
-1. Now, we will be implementing a new service `moderation` to approve or reject comments based on their content. For simplicity, the `moderation` service will approve comments unless they contain `badword` keyword. Types of events emmited from services related to moderation feature are:
+### Adding comment moderation feature as a service
+
+1. Now, we will be implementing a new service `moderation` to approve or reject comments based on their content. For simplicity, the `moderation` service will approve comments unless they contain the keyword "badword". Types of events emmited from services related to moderation feature are:
 
 <p align="center">
 <img src="../screenshots/07_Moderation_diagram.png" alt="drawing" width="500"/>
@@ -142,6 +144,50 @@ const CommentList = ({ comments }) => {
 export default CommentList;
 ```
 
-6. Now, even if the `moderation` service crashes, it is still possible to create comments although they are not displayed. To store comments to be moderated when `moderation` service runs again, we can use something similar to Event Source design pattern, which is explained in the next section.
+6. Now, even if the `moderation` service crashes, it is still possible to create comments although they are not displayed.
 
 ![this](../screenshots/08_Comments_processed.png)
+
+### Using event bus as an event source for query service
+
+1. Next, we will make use of event sourcing pattern in the simplest form by storing all kinds of events in `event-bus` (that also acts like an event store for simplicity) and consuming them in `query` service, so that if the `query` restarts, the latest data can be shown to the frontend.
+
+<p align="center">
+<img src="../screenshots/09_Event_store.png" alt="drawing" width="500"/>
+</p>
+
+2. Store `event`s in an array called `events` whenever an event is posted to the `event-bus` service...
+
+```js
+const events = [];
+
+events.push(event); //inside post("/events") handler
+```
+
+...and implement a GET endpoint that returns `events`.
+
+```js
+app.get("/events", (req, res) => {
+  res.send(events);
+});
+```
+
+3. In the `query` service, move event processing into `handleEvent(type,data)` function and make a GET request to `event-bus` to get all events when it starts running.
+
+```js
+app.listen(4002, async () => {
+  console.log("Listening on 4002");
+
+  const res = await axios
+    .get("http://localhost:4005/events")
+    .catch((err) => console.log(err));
+
+  for (let event of res.data) {
+    console.log("Processing event:" + event.type);
+
+    handleEvent(event.type, event.data);
+  }
+});
+```
+
+4. Now, even after the `query` service crashes, new posts and (if available) comments can be created and displayed when the `query` service is up and running again.
