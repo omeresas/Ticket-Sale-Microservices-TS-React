@@ -153,7 +153,7 @@ export default CommentList;
 1. Next, we will make use of event sourcing pattern in the simplest form by storing all kinds of events in `event-bus` (that also acts like an event store for simplicity) and consuming them in `query` service, so that if the `query` restarts, the latest data can be shown to the frontend.
 
 <p align="center">
-<img src="../screenshots/09_Event_store.png" alt="drawing" width="500"/>
+<img src="../screenshots/09_Event_store.png" alt="drawing" width="700"/>
 </p>
 
 2. Store `event`s in an array called `events` whenever an event is posted to the `event-bus` service...
@@ -172,7 +172,7 @@ app.get("/events", (req, res) => {
 });
 ```
 
-3. In the `query` service, move event processing into `handleEvent(type,data)` function and make a GET request to `event-bus` to get all events when it starts running.
+3. In the `query` service, move event processing into `handleEvent` function and make a GET request to `event-bus` to get all events when it starts running.
 
 ```js
 app.listen(4002, async () => {
