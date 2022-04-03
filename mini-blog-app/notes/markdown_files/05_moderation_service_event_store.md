@@ -1,6 +1,4 @@
-## Moderating comments in moderation service, storing events in event bus and consuming events in query service
-
-### Adding comment moderation feature as a service
+## Moderating comments in moderation service
 
 1. Now, we will be implementing a new service `moderation` to approve or reject comments based on their content. For simplicity, the `moderation` service will approve comments unless they contain the keyword "badword". Types of events emmited from services related to moderation feature are:
 
@@ -146,9 +144,11 @@ export default CommentList;
 
 6. Now, even if the `moderation` service crashes, it is still possible to create comments although they are not displayed.
 
-![this](../screenshots/08_Comments_processed.png)
+<p align="center">
+<img src="../screenshots/08_Comments_processed.png" alt="drawing" width="700"/>
+</p>
 
-### Using event bus as an event source for query service
+## Using event bus as an event source for query service
 
 1. Next, we will make use of event sourcing pattern in the simplest form by storing all kinds of events in `event-bus` (that also acts like an event store for simplicity) and consuming them in `query` service, so that if the `query` restarts, the latest data can be shown to the frontend.
 
