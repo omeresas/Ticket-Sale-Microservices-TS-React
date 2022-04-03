@@ -2,7 +2,9 @@
 
 1. Now, we will be implementing a new service `moderation` to approve or reject comments based on their content. For simplicity, the `moderation` service will approve comments unless they contain `badword` keyword. Types of events emmited from services related to moderation feature are:
 
-![this](../screenshots/07_Moderation_diagram.png)
+<p align="center">
+<img src=".../screenshots/07_Moderation_diagram.png" alt="drawing" width="700"/>
+</p>
 
 2. Change `comments` service to add `pending` status when new comment is created by default. In `comments` service:
 
