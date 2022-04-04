@@ -25,7 +25,7 @@ docker run busybox ping google.com
 4. List running containers, use `--all` to list all.
 
 ```shell
-   docker ps
+docker ps
 ```
 
 5. Remove unused data (stopped containers, not used networks, dangling images, build cache).
@@ -87,7 +87,7 @@ docker build [OPTIONS] PATH | URL | -
 Use `-t` to tag the image: DOCKERID / REPO | PROJECTNAME : VERSION
 
 ```shell
-docker build . -t oesasdocker/my-dockerised-project:latest
+docker build -t oesasdocker/my-dockerised-project:latest .
 ```
 
 Then you can use the tag to run a container with that image, latest by default:
@@ -127,7 +127,7 @@ COPY ./ ./
 CMD ["npm", "start"]
 ```
 
-2. Build the image with tag `oesasdocker/posts`:
+2. Build the image with tag `oesasdocker/posts`
 
 ```shell
 docker build -t oesasdocker/posts .
