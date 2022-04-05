@@ -1,6 +1,7 @@
 ## Learning basic Docker commands
 
-The official documentation is [here](https://docs.docker.com/engine/reference/run/). The amount of Docker that you need is summarised below:
+For full Docker CLI reference: [https://docs.docker.com/engine/reference/run/](https://docs.docker.com/engine/reference/run/).
+The amount of Docker that you need is summarised below:
 
 1. Create a container. The `docker create` command creates a writeable container layer over the specified image and prepares it for running the specified command.
 
