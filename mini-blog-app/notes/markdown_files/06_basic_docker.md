@@ -65,7 +65,7 @@ To get a command prompt (sh, bash, powershell or zsh, depending on which program
 docker exec -it CONTAINER sh
 ```
 
-To get a commant prompt as you begin running a container:
+To override the default command of image and get a commant prompt as you begin running a container:
 
 ```shell
 docker run -it IMAGE sh

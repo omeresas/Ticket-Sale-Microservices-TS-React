@@ -1,6 +1,6 @@
 ## Notes for Simple Blog Microservices App
 
-This folder contains notes that were created while implementing the mini blog app which consists of frontend app, posts, comments, query, moderation services and an event bus in the most simplistic form.
+This folder contains notes that were created while implementing the mini blog app, which consists of frontend app, posts, comments, query, moderation services and an event bus in the most simplistic form.
 
 ### List of Notes
 
@@ -10,3 +10,4 @@ This folder contains notes that were created while implementing the mini blog ap
 4. [Introducing Event Bus, CQRS concepts and Query service](markdown_files/04_event_bus_cqrs.md)
 5. [Moderating comments and Event Sourcing for Query service](markdown_files/05_moderation_service_event_store.md)
 6. [Learning basics of Docker and Dockerizing mini blog app](markdown_files/06_basic_docker.md)
+7. [Orchestrating Services with Kubernetes](markdown_files/07_basic_kubernetes.md)
