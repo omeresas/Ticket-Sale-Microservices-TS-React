@@ -1,6 +1,6 @@
-## Create the CommentCreate and CommentList components
+## Create the CommentCreate and CommentList Components
 
-### Create the CommentCreate component
+### Create the CommentCreate Component
 
 1. `CommentCreate` component needs to know `post.id` to associate created comments with posts. To do this, pass along the `postId` prop from `PostList` component to `CommentCreate` component.
 
@@ -52,7 +52,7 @@ const CommentCreate = ({ postId }) => {
 export default CommentCreate;
 ```
 
-### Create the CommentList component
+### Create the CommentList Component
 
 1. Likewise, `CommentList` component needs `postId` prop, implement similary to make GET request to `comments` app:
 

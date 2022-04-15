@@ -1,4 +1,4 @@
-## Learning basic Docker commands
+## Learning Basic Docker Commands
 
 For full Docker CLI reference: [https://docs.docker.com/engine/reference/run/](https://docs.docker.com/engine/reference/run/).
 The amount of Docker that you need is summarised below:
@@ -113,7 +113,7 @@ docker commit -c 'CMD ["redis-server"]' CONTAINER
 
 12. In the Docker world, `alpine` version means it is the most compact fomr of that program, with no additional bunch of programs installed. E.g.: `node:alpine` base image.
 
-## Dockerizing the posts service
+## Dockerizing the Posts Service
 
 1. Create Dockerfile as shown below, pay attention to intermediary images by installing dependencies first and then copying assets so that build image cache is not busted.
 
@@ -147,6 +147,6 @@ Output will be like:
 docker push docker.io/oesasdocker/posts
 ```
 
-## Dockerizing other services
+## Dockerizing Other Services
 
 Do the same for other services as well.

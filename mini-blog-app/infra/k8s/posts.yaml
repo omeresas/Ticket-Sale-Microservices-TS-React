@@ -5,5 +5,5 @@ metadata:
 spec:
   containers:
     - name: posts
-      image: oesasdocker/posts:0.0.1
+      image: oesasdocker/posts
       imagePullPolicy: Never

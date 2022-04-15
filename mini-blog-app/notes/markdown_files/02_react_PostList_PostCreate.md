@@ -1,6 +1,6 @@
-## Create first React component PostCreate
+## Create First React Component PostCreate
 
-### Start implementing the client app:
+### Start Implementing the Client App:
 
 1. Inside `client` folder, install `axios` to make request to Express apps.
 
@@ -36,7 +36,7 @@ export default App;
 npm start
 ```
 
-### Create PostCreate component:
+### Create PostCreate Component:
 
 1. Create `PostCreate.js` to implement React component for post submission:
 
@@ -73,7 +73,7 @@ const App = () => {
 };
 ```
 
-### Hook up Bootstrap:
+### Hook Up Bootstrap:
 
 1. Find `BootstrapCDN` link to apply Bootstrap CSS, add to `public/index/html`"
 
@@ -99,7 +99,7 @@ const App = () => {
 }"
 ```
 
-### useState Hook and CORS errors:
+### useState Hook and CORS Errors:
 
 1. Use `useState` hook inside `PostCreate` component to add some state, without the need to convert it to a class. Define an `onSubmit` function to be called whenever the form is submitted and prevent default action of browser trying to submit the form itself. Use `axios` to make POST requests to `posts` app and use async-await syntax.
 
@@ -161,7 +161,7 @@ app.use(cors());
 
 ![this](../screenshots/01_PostCreate.png)
 
-## Create the PostList component
+## Create the PostList Component
 
 1. Implement `PostList` functional component that makes GET requests to `posts` app and renders the posts in Bootstrap cards.
 

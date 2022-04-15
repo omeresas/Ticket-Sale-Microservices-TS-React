@@ -1,4 +1,4 @@
-## Introducing Event Bus and CQRS concepts
+## Introducing Event Bus and CQRS Concepts
 
 First, let's take a look at the current architecture. Currently, the frontend app makes one GET request to get the posts and one GET request **per** post to get the comments associated with that post, resulting in very inefficient communication between client and server.
 
@@ -31,7 +31,7 @@ Advantages and disadvantages of introducing CQRS are:
 - :x: Data duplication.
 - :x: Relatively more complex.
 
-### Implement a simple event bus in Express
+### Implement a Simple Event Bus in Express
 
 1. Create a separate app called `event-bus` just like `posts` and `comments` app. Catch errors in case promises are rejected, so that the failure of a service does not crash the `event-bus` broker, making each service to be more independent.
 

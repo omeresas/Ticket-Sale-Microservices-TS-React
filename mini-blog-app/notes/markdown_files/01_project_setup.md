@@ -1,6 +1,6 @@
-## Setup the client, posts and comments apps
+## Setup the Client, Posts and Comments Apps
 
-### Initialize Git repository and connect it to GitHub:
+### Initialize Git Repository and Connect It to GitHub:
 
 1. Inside `mini-blog-app`, initialize Git repository:
 
@@ -34,7 +34,7 @@ git remote add origin git@github.com:omeresas/nodejs-microservices.git
 git push -u origin master
 ```
 
-### Initilize client React app:
+### Initilize Client React app:
 
 1. Inside `mini-blog-app`, create a React app named `client`.
 
@@ -42,7 +42,7 @@ git push -u origin master
 npx create-react-app client
 ```
 
-### Initilize posts Express app:
+### Initilize Posts Express app:
 
 1. Inside `mini-blog-app`, create a folder named `posts` and enter into it:
 
@@ -58,7 +58,7 @@ npm init -y
 npm install express cors axios nodemon
 ```
 
-### Initilize comments Express app:
+### Initilize Comments Express App:
 
 1. Go back to `mini-blog-app` folder and do the same for `comments` app:
 
@@ -70,9 +70,9 @@ npm init -y
 npm install express cors axios nodemon
 ```
 
-## Implement the posts app and test manually
+## Implement the Posts App and Test Manually
 
-### Start implementing the posts app:
+### Start Implementing the Posts App:
 
 1. Create an `index.js` file inside `posts` folder, use `randomBytes` from `crypto` to generate `id`s and `express.json()` middleware to parse incoming request bodies in a middleware before your handlers, available under the `req.body` property.
 
@@ -120,7 +120,7 @@ app.listen(4000, () => {
 npm start
 ```
 
-### Test manually using Postman:
+### Test Manually Using Postman:
 
 1. Start `Postman Agent` and open up `Postman` in the browser.
 2. Set `Content-Type` header to `application/json`, make the first POST request by sending `json` request body, pay attention to `"` around keys in `JSON`:
@@ -155,9 +155,9 @@ npm start
 }
 ```
 
-## Implement the comments app and test manually
+## Implement the Comments App and Test Manually
 
-### Start implementing the comments app:
+### Start Implementing the Comments App:
 
 1. Implement the comments app similary:
 
@@ -205,7 +205,7 @@ app.listen(4000, () => {
 npm start
 ```
 
-### Test manually using Postman:
+### Test Manually Using Postman:
 
 1. Set HTTP headers and Postman similarly and make your POST request including your first comment to a post with `id` such as 100:
 
