@@ -5,9 +5,9 @@ This folder contains notes that were created while implementing the mini blog ap
 ### List of Notes
 
 1. [Setup and implement the client, posts and comments apps](markdown_files/01_project_setup.md)
-2. [Implement React Components PostCreate and PostList first React component PostCreate](markdown_files/02_react_PostList_PostCreate.md)
+2. [Implement React components PostCreate and PostList first React component PostCreate](markdown_files/02_react_PostList_PostCreate.md)
 3. [Render CommentCreate and CommentList inside each PostList component](markdown_files/03_react_CommentCreate_CommentList.md)
-4. [Introducing Event Bus, CQRS concepts and Query service](markdown_files/04_event_bus_cqrs.md)
-5. [Moderating comments and Event Sourcing for Query service](markdown_files/05_moderation_service_event_store.md)
-6. [Learning basics of Docker and Dockerizing mini blog app](markdown_files/06_basic_docker.md)
-7. [Orchestrating Services with Kubernetes](markdown_files/07_basic_kubernetes.md)
+4. [Introducing Event Bus, CQRS concepts and query service](markdown_files/04_event_bus_cqrs.md)
+5. [Moderating comments and Event Sourcing for query service](markdown_files/05_moderation_service_event_store.md)
+6. [Learning basics of Docker and dockerizing mini blog app](markdown_files/06_basic_docker.md)
+7. [Orchestrating services with Kubernetes](markdown_files/07_basic_kubernetes.md)

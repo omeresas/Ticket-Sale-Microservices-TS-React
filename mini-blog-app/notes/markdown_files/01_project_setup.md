@@ -34,7 +34,7 @@ git remote add origin git@github.com:omeresas/nodejs-microservices.git
 git push -u origin master
 ```
 
-### Initilize Client React app:
+### Initilize Client React App:
 
 1. Inside `mini-blog-app`, create a React app named `client`.
 
@@ -42,7 +42,7 @@ git push -u origin master
 npx create-react-app client
 ```
 
-### Initilize Posts Express app:
+### Initilize Posts Express App:
 
 1. Inside `mini-blog-app`, create a folder named `posts` and enter into it:
 
