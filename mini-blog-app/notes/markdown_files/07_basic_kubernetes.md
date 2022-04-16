@@ -191,6 +191,12 @@ spec:
 <img src="../screenshots/11_NodePort_2.png" alt="drawing" width="500"/>
 </p>
 
+and run `kubectl describe service posts-srv`:
+
+<p align="center">
+<img src="../screenshots/11_NodePort_3.png" alt="drawing" width="500"/>
+</p>
+
 - `NodePort`: randomly assigned port in 3xxxx to actually access the service, such as from the browser
 
 4. `localhost:31765/posts` will make GET request to endpoint `/posts` of `posts` service.
