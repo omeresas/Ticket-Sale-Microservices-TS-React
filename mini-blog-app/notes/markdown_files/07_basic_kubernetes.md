@@ -181,14 +181,14 @@ spec:
 </p>
 
 - `selector`: Similar to the one in Deployment, tell Service which pod
-- `name` inside `ports`: name metadata of the port
+- `name` under `ports`: name metadata of the port
 - `port`: Port of NodePort service. The `NodePort` service will redirect traffic over to `targetPort` of the container.
 - `targetPort`: Port of the pod, the one application uses inside the pod.
 
 3. When you run `kubectl get services`:
 
 <p align="center">
-<img src="../screenshots/11_NodePort_2.png" alt="drawing" width="500"/>
+<img src="../screenshots/11_NodePort_2.png" alt="drawing" width="700"/>
 </p>
 
 and run `kubectl describe service posts-srv`:
