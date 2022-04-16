@@ -177,7 +177,7 @@ spec:
 2. Understanding NodePorts:
 
 <p align="center">
-<img src="../screenshots/10_Node_Port.png" alt="drawing" width="700"/>
+<img src="../screenshots/10_NodePort.png" alt="drawing" width="700"/>
 </p>
 
 - `selector`: Similar to the one in Deployment, tell Service which pod
@@ -188,7 +188,7 @@ spec:
 3. When you run `kubectl get services`:
 
 <p align="center">
-<img src="../screenshots/11_Node_Port_2.png" alt="drawing" width="500"/>
+<img src="../screenshots/11_NodePort_2.png" alt="drawing" width="500"/>
 </p>
 
 - `NodePort`: randomly assigned port in 3xxxx to actually access the service, such as from the browser
