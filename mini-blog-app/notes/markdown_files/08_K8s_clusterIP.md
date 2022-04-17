@@ -211,7 +211,7 @@ spec:
 
 Update routes in React app `client` and the `posts` service, re-build images, push to Docker Hub, and rollout restart deployments.
 
-5. Update paths in `ingress-srv.yaml`. Ingress does not make use of wildcars with columns (:) in paths, so use wildcars with regex (the one below is any value followed by `/comments`). Add annotation to use regex. Finally, add `/` path with wildcard **at the end** to make it work with SPA approach (not used here but in general for other apps). Path rules are **ordered from greatest priority to lowest** from top to bottom.
+5. Update paths in `ingress-srv.yaml`. Ingress does not make use of wildcars with columns (:) in paths, so use wildcars with regex (the one below is any value followed by `/comments`). Add annotation to use regex. Finally, add `/` path with wildcard **at the end** to make it work with SPA approach (not used here but in general for other apps). **Path rules are ordered from greatest priority to lowest from top to bottom**.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
