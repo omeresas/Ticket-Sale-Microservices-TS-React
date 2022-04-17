@@ -108,7 +108,7 @@ await axios
 <img src="../screenshots/13_Ingress.png" alt="drawing" width="500"/>
 </p>
 
-3. Install Ingress-Nginx: Ingress-Nginx (the one in [https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx) creates a Load Balancer service and an Ingress automatically. Note: Kubernetes-ingress is totally different (see [https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/](https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/)).
+3. Install Ingress-Nginx: Ingress-Nginx (the one in [https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx)) creates a Load Balancer service and an Ingress automatically. Note: Kubernetes-ingress is totally different (see [https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/](https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/)).
 
 Install ingress-nginx with `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml`.
 
@@ -142,7 +142,7 @@ Ingress nginx is assuming we might be running many different apps at different d
 4. If you are unable to access the application you may have something already running on port 80, which is the default port for the ingress. Run `sudo lsof -i tcp:80` to see which processes use port 80. If Docker is properly listening on port 80 you should see something very similar:
 
 <p align="center">
-<img src="../screenshots/14_port80.png" alt="drawing" width="500"/>
+<img src="../screenshots/14_Port80.png" alt="drawing" width="700"/>
 </p>
 
 If something else is listed for `TCP *:http`, you'll need to shut that service down.
@@ -209,9 +209,9 @@ spec:
 <img src="../screenshots/15_Changed_routes.png" alt="drawing" width="600"/>
 </p>
 
-Update routes in React app `client` and `posts` service, re-build images, push to Docker Hub, and rollout restart deployments.
+Update routes in React app `client` and the `posts` service, re-build images, push to Docker Hub, and rollout restart deployments.
 
-5. Update paths in `ingress-srv.yaml`. Ingress does not make use of wildcars with columns (:) in paths, so use wildcars with regex (the one below is any value followed by comments). Add annotation to use regex. Finally, add / path with wildcard **at the end** to make it work with SPA approach (not used here but in general for other apps) Paths are ordered from greatest priority to lowest from top to bottom.
+5. Update paths in `ingress-srv.yaml`. Ingress does not make use of wildcars with columns (:) in paths, so use wildcars with regex (the one below is any value followed by `/comments`). Add annotation to use regex. Finally, add `/` path with wildcard **at the end** to make it work with SPA approach (not used here but in general for other apps). Path rules are o`rdered from greatest priority to lowest` from top to bottom.
 
 ```yaml
 apiVersion: networking.k8s.io/v1
