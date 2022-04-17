@@ -1,4 +1,4 @@
-## Setting Up a ClusterIP Service
+## Setting Up ClusterIP Services for Posts and Event Bus
 
 1. Let's create a clusterIP service for the `event-bus` service, so that other services can send it events. In a file named `event-bus-depl.yaml`, we will specify both the deployment and the clusterIP for the `event-bus`. `type: ClusterIP` is optional, without this field it defaults to clusterIP as well.
 
@@ -77,3 +77,33 @@ await axios
 - Learn actual `nodePort` by `kubectl get services`.
 - Make a POST request to `localhost:30232/posts` to verify nodePort service.
 - Run `kubectl get pods` and `kubectl logs posts-depl-67bf9ff9fb-7f5kd` to see logs of `posts` service. You should see "Received event PostCreated" which is sent by event bus.
+
+### Adding ClusterIP Service for Other Services
+
+1. Update the URLs of HTTP requests in services.
+
+2. Re-build docker images and push to Docker Hub.
+
+3. Create a deployment and clusterIP for `moderation`, `query` and `comments` services as well.
+
+4. Run `kubectl apply -f infra/k8s/.` to apply all created config files.
+
+5. Update URLs in `event-bus`, re-build image, push to Docker Hub, and `kubectl rollout restart deployment event-bus-srv`.
+
+## Integrating React App into the Cluster
+
+1. How do we call services from the client? Either we can use a NodePort for each of the posts, comments and query services, or we can make use of load balancer service.
+
+<p align="center">
+<img src="../screenshots/12_Loadbalancer.png" alt="drawing" width="700"/>
+</p>
+
+2. There are two different services when it comes to load balancers in K8s:
+
+- `Load Balancer Service`: Tells Kubernetes to reach out to its provider and provision a load balancer. Gets traffic to a _single pod_.
+
+- `Ingress or Ingress Controller`: A pod with a set of routing rules to distribute traffic to (clusterIP services of) other services. (Technically `ingress` and `ingress controller` are two different things, but can be used interchangebly for now.)
+
+<p align="center">
+<img src="../screenshots/13_Ingress.png" alt="drawing" width="700"/>
+</p>
