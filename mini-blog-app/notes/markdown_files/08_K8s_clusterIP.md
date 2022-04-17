@@ -142,7 +142,7 @@ Ingress nginx is assuming we might be running many different apps at different d
 4. If you are unable to access the application you may have something already running on port 80, which is the default port for the ingress. Run `sudo lsof -i tcp:80` to see which processes use port 80. If Docker is properly listening on port 80 you should see something very similar:
 
 <p align="center">
-<img src="../screenshots/14_Port80.png" alt="drawing" width="700"/>
+<img src="../screenshots/14_Port80.png" alt="drawing" width="1000"/>
 </p>
 
 If something else is listed for `TCP *:http`, you'll need to shut that service down.
