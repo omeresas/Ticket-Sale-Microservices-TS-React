@@ -11,4 +11,4 @@ This folder contains notes that were created while implementing the mini blog ap
 5. [Moderating comments and Event Sourcing for query service](markdown_files/05_moderation_service_event_store.md)
 6. [Learning basics of Docker and dockerizing mini blog app](markdown_files/06_basic_docker.md)
 7. [Orchestrating services with Kubernetes](markdown_files/07_basic_kubernetes.md)
-8. [ClusterIPs, Ingress Nginx and Integrating All services](markdown_files/08_K8s_clusterIP.md)
+8. [ClusterIPs, Ingress Nginx and Integrating React App to the Cluster](markdown_files/08_K8s_clusterIP.md)
