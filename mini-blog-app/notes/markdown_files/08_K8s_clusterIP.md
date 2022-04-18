@@ -110,7 +110,11 @@ await axios
 
 3. Install Ingress-Nginx: Ingress-Nginx (the one in [https://github.com/kubernetes/ingress-nginx](https://github.com/kubernetes/ingress-nginx)) creates a Load Balancer service and an Ingress automatically. Note: Kubernetes-ingress is totally different (see [https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/](https://www.nginx.com/blog/guide-to-choosing-ingress-controller-part-4-nginx-ingress-controller-options/)).
 
-Install ingress-nginx with `kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml`.
+Install ingress-nginx with
+
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.2/deploy/static/provider/cloud/deploy.yaml
+```
 
 2. Create routing rules in `ingress-srv.yaml`. Ingress will scan applied config files and try to find annotations, specifically the one we specified, to get the routing rules.
 
@@ -256,4 +260,115 @@ spec:
                   number: 3000
 ```
 
-6. At this point, you should reach `posts.com` and use the app just like before.
+6. At this point, you should be able to reach `posts.com` and use the app just like before.
+
+## Utilizing Skaffold to Automate Tasks
+
+1. Currently, whenever we make a change to our codebase, we re-build image of the modified service, push to Docker Hub and rollout restart deployment, which is time-consuming. Instead, we can use Skaffold to automate these tasks in a Kubernetes dev environment. It makes it easy to
+
+- Update code in a running pod
+- Create/delete objects associated with a particular project
+
+2. Install Skaffold, for example, using Brew:
+
+```shell
+brew install Skaffold
+```
+
+3. Create a file named `skaffold.yaml` inside mini-blog app folder. By specifying the config files inside manifests, we are telling Skaffold to watch these config files and anytime we make a change to those config files, Skaffold is automatically apply the config file to our Kubernetes cluster. So it saves us from applying config files whenever we modify them or create a new config file in the folder. Lastly, when we stop Skaffold, it will find the K8s objects specified under `./infra/k8s` folder and delete them.
+
+```yaml
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+```
+
+4. Whenever we make a change to to code, Skaffold will rebuild image and push to Docker Hub. To turn off this feature, we specify `push: false`. In the `artifacts` we tell Skaffold that there is going to be a pod running code out of, for example, `client` directory.
+
+```yaml
+build:
+  local:
+    push: false
+  artifacts:
+    - image: oesasdocker/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+```
+
+Whenever something changes in `src/**/*.js`, Skaffold will try to take those changes and update the pod with latest code. Two ways of updating a pod:
+
+- `sync: manual`: Just take the changed file, specified js files in this case, and throw it directly inside the running pod. Inside the pods, **nodemon** or **create-react-app** is the actual agents to restart the apps (primary processes) when they see a changed file inside the folder (inside the pods). Without them, using Skaffold won't restart apps after files change inside the pod.
+- For other changed that is not catched by the rules in `sync: manual:`, Skaffold will try to re-build the image and instantiate in a new pod.
+
+Do the same for other services, in the end, `skaffold.yaml` file should look like this:
+
+```yaml
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: oesasdocker/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: oesasdocker/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: oesasdocker/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: oesasdocker/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: oesasdocker/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: oesasdocker/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+```
+
+5. Run `skaffold dev` to run pods as specified. Try changing some files inside React app or other services. Changed files in the `sync` rule will be copied inside pods and **create-react-app** or **nodemon** will see the changed files and restart the primary processes. To stop Skaffold, use `CTRL + C`, it will delete deployments and services found in the specified folder.
