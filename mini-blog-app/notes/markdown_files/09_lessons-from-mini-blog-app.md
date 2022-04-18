@@ -1,6 +1,6 @@
 ## Lessons from Mini-Blog-App
 
-### Main take-home points
+### Take-home points
 
 - The big challenge in microservices is data. Working with multiple data models in multiple services is quite challenging.
 - There are different ways to share data between microservices. We are going to focus on the async communication and communicating changes by sending events to a production-quality event bus in the next application.
@@ -15,7 +15,7 @@
 - It was difficult to test some event flows. What if someone created a comment after editing ten others after editing a post etc...
 - Machine might get laggy running K8s and many services.
 
-### Solutions to above problems
+### Possible solutions to above problems
 
 - Build a central library as an NPM module to share code between services, **without overdoing it**.
 - Precisely define all the events in this shared library.
