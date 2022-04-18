@@ -1,4 +1,4 @@
-## Notes for Simple Blog Microservices App
+## Notes of Simple Blog Microservices App
 
 This folder contains notes that were created while implementing the mini blog app, which consists of frontend app, posts, comments, query, moderation services and an event bus in the most simplistic form.
 
