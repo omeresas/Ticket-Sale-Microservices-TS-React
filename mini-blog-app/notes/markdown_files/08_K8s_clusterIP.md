@@ -306,7 +306,7 @@ build:
 Whenever something changes in `src/**/*.js`, Skaffold will try to take those changes and update the pod with latest code. Two ways of updating a pod:
 
 - `sync: manual`: Just take the changed file, specified js files in this case, and throw it directly inside the running pod. Inside the pods, **nodemon** or **create-react-app** is the actual agents to restart the apps (primary processes) when they see a changed file inside the folder (inside the pods). Without them, using Skaffold won't restart apps after files change inside the pod.
-- For other changed that is not catched by the rules in `sync: manual:`, Skaffold will try to re-build the image and instantiate in a new pod.
+- For other changes that is not catched by the rules in `sync: manual:`, Skaffold will try to re-build the image, delete the old pod and run the new image in a new pod.
 
 Do the same for other services, in the end, `skaffold.yaml` file should look like this:
 

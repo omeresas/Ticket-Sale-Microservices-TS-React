@@ -12,3 +12,4 @@ This folder contains notes that were created while implementing the mini blog ap
 6. [Learning basics of Docker and dockerizing mini blog app](markdown_files/06_basic_docker.md)
 7. [Orchestrating services with Kubernetes](markdown_files/07_basic_kubernetes.md)
 8. [ClusterIPs, Ingress Nginx, Integrating React App and Skaffold](markdown_files/08_K8s_clusterIP.md)
+9. [Lessons from the Mini-Blog-App](markdown_files/09_lessons-from-mini-blog-app.md)
