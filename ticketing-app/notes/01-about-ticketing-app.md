@@ -14,13 +14,6 @@ The ticketing app will utilize real databases, production-grade event bus and co
 ## Data Models
 
 <style type="text/css">
-.tg td{font-size:14px;
-  overflow:hidden;padding:10px 10px;word-break:normal;}
-.tg th{font-size:17px;
-  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
-.tg .tg-amwm{font-weight:bold;text-align:center;vertical-align:top}
-.tg .tg-if35{font-weight:bold;text-align:center;vertical-align:top}
-.tg .tg-0lax{text-align:center;vertical-align:top}
 </style>
 <table class="tg">
 <thead>
@@ -45,7 +38,6 @@ The ticketing app will utilize real databases, production-grade event bus and co
 </table>
 
 <style type="text/css">
-  .tg .tg-ps66{font-size:10px;text-align:center;vertical-align:top}
 </style>
 <table class="tg">
 <thead>
