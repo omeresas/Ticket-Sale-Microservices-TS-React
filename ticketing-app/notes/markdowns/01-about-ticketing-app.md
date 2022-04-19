@@ -11,8 +11,26 @@ The ticketing app will be similar to "stubhub" app. Some of the capabilites we a
 
 The ticketing app will utilize real databases, production-grade event bus and commonly used payment APIs.
 
-## Data Models
+### Data Models
 
-<p align="center">
+<p>
 <img src="../images/01-data-models.png" alt="drawing" width="500"/>
+</p>
+
+### Services of Ticketing App
+
+<p>
+<img src="../images/02-services-of-ticketing-app.png" alt="drawing" width="400"/>
+</p>
+
+### Types of Events
+
+<p>
+<img src="../images/03-events-of-ticketing.png" alt="drawing" width="400"/>
+</p>
+
+### Architecture
+
+<p>
+<img src="../images/04-architecture.png" alt="drawing" width="500"/>
 </p>
