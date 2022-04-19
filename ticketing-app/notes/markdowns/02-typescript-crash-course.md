@@ -82,6 +82,9 @@ let now: Date = new Date();
 // arrays
 let colors: string[] = ["red", "green", "blue"];
 
+// multi-type arrays
+let colorsOrNumbers: (string | number)[] = ["red", 15, "blue"];
+
 // classes
 class Car {}
 let car: Car = new Car();
@@ -168,7 +171,7 @@ for (let i = 0; i < numbers.length; i++) {
 - Destructuring with TS:
 
 ```ts
-// type destructuring with TS
+// object destructuring with TS
 const todaysWeather = {
   date: new Date(),
   weather: "sunny",
@@ -195,4 +198,111 @@ const secondLogWeather = ({
 };
 
 secondLogWeather(todaysWeather);
+```
+
+- Annotations around objects:
+
+```ts
+const profile = {
+  name: "alex",
+  age: 20,
+  coords: {
+    lat: 0,
+    lng: 15,
+  },
+  setAge(age: number): void {
+    this.age = age;
+  },
+};
+
+// we need to mirror the object structure, simply ":number" won't work
+const { age }: { age: number } = profile;
+
+const {
+  coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile;
+```
+
+- Tuples are available but not so helpful since the properties do not have names:
+
+```ts
+// instead of object literal like
+const drink = {
+  color: "brown",
+  carbonated: true,
+  sugar: 40,
+};
+
+const coffee: [string, boolean, number] = ["black", false, 0];
+
+// Type alias for tuples
+type Drink = [string, boolean, number];
+
+const tea: Drink = ["brown", false, 10];
+```
+
+- Interface concept from OOP:
+
+```ts
+interface Reportable {
+  summary(): string;
+}
+
+const newCivic = {
+  name: "civic",
+  production: new Date(),
+  broken: false,
+  summary(): string {
+    return `Name: ${this.name}`;
+  },
+};
+
+const coke = {
+  sugar: 100,
+  calorie: 500,
+  summary(): string {
+    return `Calorie: ${this.calorie}`;
+  },
+};
+
+const printSummary = (item: Reportable): void => {
+  console.log(item.summary());
+};
+
+printSummary(newCivic);
+printSummary(coke);
+```
+
+- Method modifiers in classes:
+
+  - `public`: This method can be called any where, any time.
+  - `private`: This method can only be called by _other methods_ in _this class_.
+  - `protected`: This method can be called by other methods in _this_ class, or by other methods in _child classes_.
+
+- A shortcut using constructor in classes:
+
+```ts
+class Vehicle {
+  constructor(public color: string, private price: number) {}
+}
+
+const car = new Vehicle("red", 2500);
+```
+
+- Inheritance:
+
+```ts
+class Vehicle {
+  constructor(public color: string, private price: number) {}
+}
+
+const car = new Vehicle("red", 2500);
+
+class Car extends Vehicle {
+  constructor(color: string, price: number, public wheels: number) {
+    super(color, price);
+  }
+}
+
+const batMobile = new Car("black", 10000, 8);
 ```
