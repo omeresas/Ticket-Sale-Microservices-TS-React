@@ -394,7 +394,7 @@ npm i --save-dev @types/google.maps
 
 To verify that it works, check the console in the browser and look for a network request similar to the one we specified. You can also check for a global variable named `google`, which means it is available everywhere inside our project without import statements.
 
-6. Take a look into the `index.d.ts` type definition file for Google Maps JS, do a <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>P</kbd> and do fold level 2 to condense some section of code. This can help you find interesting things inside the library.
+6. Take a look into the `index.d.ts` type definition file for Google Maps JS, do a <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>P</kbd> and do fold level 2 to condense some section of code. This can help you find interesting things inside the library and learn method signatures, classes, available options and alike.
 
 7. To create a map, instantiate a `Map` object and provide it with an `HTMLElement`.
 
