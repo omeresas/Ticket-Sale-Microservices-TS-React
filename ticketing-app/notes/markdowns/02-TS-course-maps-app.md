@@ -481,7 +481,7 @@ for (let i = 0; i < 10; i++) {
 }
 ```
 
-10. Make sure parcel serves `index.html` in `localhost:1234`. The mini-map app now have pop-up windows and looks like:
+10. Make sure parcel serves `index.html` in [localhost:1234](http://localhost:1234/). The mini-map app now have pop-up windows and looks like:
 
 <p>
 <img src="../images/05-minimap-app.png" alt="drawing" width="800"/>
