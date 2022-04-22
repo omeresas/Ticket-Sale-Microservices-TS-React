@@ -47,7 +47,7 @@ Don't forget to tweak host file, specifically, add `ticketing.dev` to `/etc/host
 
 5. Implement the GET `api/users/currentuser` endpoint to return a simple response and try accessing `ticketing.dev/api/users/currentuser`. If you can't reach the server and see a warning such as "Your connection is not private.", it is a warning from the browser about self-sign certificates. Ingress-nginx is a web server that uses HTTPS connections and by default it uses self-signed certificates. Browsers in general does not trust websites that use self-signed certificates. Type "thisisunsafe" to by-pass the warning.
 
-## Sign Up Route, Validation and Error Handling
+## Routes, Input Validation and Error Handling
 
 1. Create 4 routers in 4 files inside `src/routes`. The one for `/api/users/currentuser` might for now look like:
 
