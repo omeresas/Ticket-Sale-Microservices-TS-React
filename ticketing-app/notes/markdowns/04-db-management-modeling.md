@@ -7,7 +7,7 @@ For persistence tasks of the `auth` service, we will be using:
 
 For more information on Mongoose: [https://mongoosejs.com/docs/index.html](https://mongoosejs.com/docs/index.html)
 
-Note that for now the data in MongoDB will be gone when we stop its pod. Later on we will make use of Docker volumes to actually persist the data in MongoDB.
+Note that for now the data in MongoDB will be gone when we stop its pod. Later on we will make use of **Docker volumes** to actually persist the data in MongoDB.
 
 ### MongoDB Instance Setup
 
@@ -158,7 +158,8 @@ if (existingUser) {
 }
 ```
 
-3. **Under no circumstances, do not store passwords as plain texts**. Instead, use **hashing** techniques for passwords, for more info: [https://www.authgear.com/post/password-hashing-salting](https://www.authgear.com/post/password-hashing-salting)
+3. **Under no circumstances, do not store passwords as plain texts**. Instead, **hash** the passwords, store hashed passwords and use hashed ones to compare the supplied password during sign in with the stored one.
+   For more info: [https://www.authgear.com/post/password-hashing-salting](https://www.authgear.com/post/password-hashing-salting)
 
 Create `password.ts` under `src/services`.
 
@@ -204,7 +205,9 @@ userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {
     const hashedPassword = await Password.toHash(this.get("password"));
     this.set("password", hashedPassword);
-    done(); // we need to call the given call-back function after calling Schema.pre()
+
+    // we need to call the given call-back function after calling Schema.pre()
+    done();
   }
 });
 ```

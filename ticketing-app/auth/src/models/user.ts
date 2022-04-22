@@ -36,7 +36,9 @@ userSchema.pre("save", async function (done) {
   if (this.isModified("password")) {
     const hashedPassword = await Password.toHash(this.get("password"));
     this.set("password", hashedPassword);
-    done(); // we need to call the given call-back function after calling Schema.pre()
+
+    // we need to call the given call-back function after calling Schema.pre()
+    done();
   }
 });
 
