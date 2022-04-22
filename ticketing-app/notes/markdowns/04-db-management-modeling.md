@@ -194,7 +194,7 @@ The example output (with logs) of static `toHash` function might look like:
 <img src="../images/11-password-hashing.png" alt="drawing" width="1000"/>
 </p>
 
-4. Use **Mongoose Pre-Save hook** to replace the plain password with the hashed one when it is first created or its password is modified. Inside `user.ts` after `userSchema` is created:
+4. Use **Mongoose Pre-Save hook** to replace the plain password with the hashed one when a user is first created or its password is modified. Inside `user.ts` after `userSchema` is created:
 
 ```ts
 userSchema.pre("save", async function (done) {
