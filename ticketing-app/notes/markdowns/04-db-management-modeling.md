@@ -127,7 +127,7 @@ console.log(someUser.email);
 In short, sign up flow will look like:
 
 <p>
-<img src="../images/10-mongo-signup.png" alt="drawing" width="600"/>
+<img src="../images/10-mongo-signup.png" alt="drawing" width="800"/>
 </p>
 
 ### Creating a New User
@@ -161,7 +161,7 @@ if (existingUser) {
 3. **Under no circumstances, do not store passwords as plain texts**. Instead, **hash** the passwords, store hashed passwords and use hashed ones to compare the supplied password during sign in with the stored one.
    For more info: [https://www.authgear.com/post/password-hashing-salting](https://www.authgear.com/post/password-hashing-salting)
 
-Create `password.ts` under `src/services`.
+Create `password.ts` under `src/services`:
 
 ```ts
 import { scrypt, randomBytes } from "crypto";
