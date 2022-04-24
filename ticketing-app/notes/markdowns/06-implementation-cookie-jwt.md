@@ -154,4 +154,4 @@ const userJwt = jwt.sign(
 );
 ```
 
-3. Finally, sign up a new user via Postman, decode the paylod and verify the signature on [jwt.io](https://jwt.io/).
+3. Finally, sign up a new user via Postman, decode the payload inside the cookie and verify the signature on [jwt.io](https://jwt.io/).
