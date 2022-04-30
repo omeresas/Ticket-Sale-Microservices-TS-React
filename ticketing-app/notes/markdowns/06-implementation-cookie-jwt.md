@@ -25,7 +25,7 @@ app.use(
 npm install jsonwebtoken @types/jsonwebtoken
 ```
 
-In `signup.ts`, after saving the new user to Mongo, generate a JWT by providing the **payload** and the **secret (signing key)** , which we will discuss later on in more detail. Then, store it on the `req.session` object by specifying the object structure from stratch because of TS.
+In `signup.ts`, after saving the new user to Mongo, generate a JWT by providing the **payload** and the **secret (signing key)** , which we will discuss later on in more detail. Then, store it on the `req.session` object by specifying the object structure from scratch because of TS.
 
 ```ts
 const user = User.build({ email: email, password: password });
@@ -117,7 +117,7 @@ const userJwt = jwt.sign(
 );
 ```
 
-To solve the type error, we can verify the presence of `process.env.JWT_KEY` for TS before attemting to use it. **Instead of verifying the presence inside a route, we should do that at the very start of auth app, just before connecting to MongoDB**
+To solve the type error, we can verify the presence of `process.env.JWT_KEY` for TS before attemting to use it. **Instead of verifying the presence inside a route, we should do that at the very start of auth app, just before connecting to MongoDB.**
 
 ```ts
 const start = async () => {
