@@ -10,3 +10,4 @@ This folder consists of notes created during the design and implementation of th
 4. [MongoDB, Sign Up Flow and Password Hashing](markdowns/04-db-management-modeling.md)
 5. [Authentication Strategies, Cookies and JWT](markdowns/05-auth-strategy-token-issue.md)
 6. [Generating JWTs, Sending via Cookies and Storing Keys as K8s Secrets](markdowns/06-implementation-cookie-jwt.md)
+7. [Request Validation, Current User Middleware and Sign In/Out Logic](markdowns/07-signIn-Out-currentUser.md)

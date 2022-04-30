@@ -161,7 +161,7 @@ if (existingUser) {
 3. **Under no circumstances, do not store passwords as plain texts**. Instead, **hash** the passwords, store hashed passwords and use hashed ones to compare the supplied password during sign in with the stored one.
    For more info: [https://www.authgear.com/post/password-hashing-salting](https://www.authgear.com/post/password-hashing-salting)
 
-Create `password.ts` under `src/services`:
+Create `password-manager.ts` under `src/services`:
 
 ```ts
 import { scrypt, randomBytes } from "crypto";
@@ -170,7 +170,7 @@ import { promisify } from "util";
 // to use promises instead of callbacks when calling scrypt
 const asyncScrypt = promisify(scrypt);
 
-export class Password {
+export class PasswordManager {
   static async toHash(password: string) {
     const salt = randomBytes(8).toString("hex");
     const buf = (await asyncScrypt(password, salt, 64)) as Buffer;
@@ -203,7 +203,7 @@ userSchema.pre("save", async function (done) {
 
   // will be true when "this" is created for the first time or password attribute is modified
   if (this.isModified("password")) {
-    const hashedPassword = await Password.toHash(this.get("password"));
+    const hashedPassword = await PasswordManager.toHash(this.get("password"));
     this.set("password", hashedPassword);
 
     // we need to call the given call-back function after calling Schema.pre()

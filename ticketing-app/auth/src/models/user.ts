@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Password } from "../services/password";
+import { PasswordManager } from "../services/password-manager";
 
 // an interface that describes the propoerties that are required to create a new User
 interface userAttrs {
@@ -46,7 +46,7 @@ userSchema.pre("save", async function (done) {
 
   // will be true when "this" is created for the first time or password attribute is modified
   if (this.isModified("password")) {
-    const hashedPassword = await Password.toHash(this.get("password"));
+    const hashedPassword = await PasswordManager.toHash(this.get("password"));
     this.set("password", hashedPassword);
 
     // we need to call the given call-back function after calling Schema.pre()
