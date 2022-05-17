@@ -377,7 +377,7 @@ it("responds with details about the current user", async () => {
 });
 ```
 
-Unlike browsers or Postman, supertest does not manage cookies automatically, so the next request we are making does not have the cookie set from the previous request. Therefore, current user route does not see any cookie in the request and returns `{currentUser: null}` inside `response.body`. We extract the cookie and set it on the next request manually:
+Unlike browsers or Postman, supertest does not manage cookies automatically, **so the next request we are making does not have the cookie set from the previous request**. Therefore, current user route does not see any cookie in the request and returns `{currentUser: null}` inside `response.body`. We extract the cookie and set it on the next request manually:
 
 ```ts
 import request from "supertest";
@@ -426,7 +426,7 @@ const signupCookie = async () => {
 export { signupCookie };
 ```
 
-Modify the current user test:
+Modify the current user test to use `signupCookie` helper function:
 
 ```ts
 it("responds with details about the current user", async () => {
