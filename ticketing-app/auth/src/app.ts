@@ -16,7 +16,7 @@ app.use(express.json());
 app.use(
   cookieSession({
     signed: false, // to disable encryption of cookies
-    secure: true, // to allow cookies only from HTTPS conneciton
+    secure: process.env.NODE_ENV !== "test", // do not require HTTPS if app runs in a test env
   })
 );
 
