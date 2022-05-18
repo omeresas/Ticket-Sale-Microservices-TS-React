@@ -12,4 +12,4 @@ This folder consists of notes created during the design and implementation of th
 6. [Generating JWTs, Sending via Cookies and Storing Keys as K8s Secrets](markdowns/06-implementation-cookie-jwt.md)
 7. [Request Validation, Current User Middleware and Sign In/Out Logic](markdowns/07-signIn-Out-currentUser.md)
 8. [Testing Auth Service with Jest and Supertest](markdowns/08-testing-auth-service.md)
-9. [Integrating Next.js Client App](markdowns/09-nextjs-app)
+9. [Integrating Next.js Client App](markdowns/09-nextjs-app.md)
