@@ -452,3 +452,183 @@ homePage.getInitialProps = async (context) => {
 
 export default homePage;
 ```
+
+5. Display whether the user is signed in a very simple way for now as:
+
+```js
+const homePage = ({ currentUser }) => {
+  return currentUser ? (
+    <h1>You are signed in!</h1>
+  ) : (
+    <h1>You are NOT signed in!</h1>
+  );
+};
+```
+
+6. Create sign in form by basically creating a new page and React component by simply copy-pasting the same code from sign-up component. Change the request address and form labels.
+
+### Creating A Resuable Sign Up/In Header
+
+1. Now we create a reusable header that is placed in all pages. The header needs to have to `currentUser` info, so it makes sense to make the `currentUser` in the most top `_app.js` page that is rendered for all pages.
+
+<p>
+<img src="../images/63-header-1.png" alt="drawing" width=800"/>
+</p>
+
+2. Let's try to make the call in `getInitialProps` of main Next.js app component `AppComponent`:
+
+```js
+import "bootstrap/dist/css/bootstrap.css";
+import buildClient from "../api/build-client";
+
+export default function AppComponent({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}
+
+AppComponent.getInitialProps = async (appContext) => {
+  const response = await (
+    await buildClient(appContext.ctx)
+  ) // how you get context in main app components in Next.js
+    .get("/api/users/currentuser");
+
+  console.log(response.data);
+  return response.data;
+};
+```
+
+Try accessing the homepage on the browser, you should see "NOT signed in" even if your browser has a valid cookie. The reason is that **`getInitialProps` of page components do not get called when we define a `getInitialProps` on the main app component of Next.js.** This is just some weird part of Next.js.
+
+3. The solution we make is that we will call the `getInitialProps` of `homePage` component, or any component if it has a `getInitialProps` defined (eg. `signup` and `signin` components do not have `getInitialProps`),inside the `getInitialProps` of `homePage`.
+
+```js
+AppComponent.getInitialProps = async (appContext) => {
+  const response = await (
+    await buildClient(appContext.ctx)
+  ) // how you get context in main app components in Next.js
+    .get("/api/users/currentuser");
+
+  let pageProps = {};
+
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+
+  return response.data;
+};
+```
+
+4. Now, pass the page props below:
+
+```js
+export default function AppComponent({ Component, pageProps, currentUser }) {
+  return (
+    <div>
+      <h1>Hi {currentUser.email}</h1>
+      <Component {...pageProps} />
+    </div>
+  );
+}
+
+AppComponent.getInitialProps = async (appContext) => {
+  const response = await (
+    await buildClient(appContext.ctx)
+  ) // how you get context in main app components in Next.js
+    .get("/api/users/currentuser");
+
+  let pageProps = {};
+
+  if (appContext.Component.getInitialProps) {
+    pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+  }
+
+  return { pageProps, currentUser: response.data.currentUser };
+};
+```
+
+5. Create the actual `Header` component in `components/header.js`. Add sign up, sign in and sign out buttons, conditionally display them depending on the `currentUser`:
+
+```js
+import Link from "next/link";
+
+export default function Header({ currentUser }) {
+  const links = [
+    !currentUser && { label: "Sign Up", href: "/auth/signup" },
+    !currentUser && { label: "Sign In", href: "/auth/signin" },
+    currentUser && { label: "Sign Out", href: "/auth/signout" },
+  ]
+    .filter((link) => link)
+    .map(({ label, href }) => {
+      return (
+        <li key={href} className="nav-item">
+          <Link href={href}>
+            <a className="nav-link">{label}</a>
+          </Link>
+        </li>
+      );
+    });
+
+  return (
+    <nav className="navbar navbar-light bg-light">
+      <Link href={"/"}>
+        <a className="navbar-brand">GitTix</a>
+      </Link>
+
+      <div className="d-flex justify-content-end">
+        <ul className="nav d-flex align-items-center">{links}</ul>
+      </div>
+    </nav>
+  );
+}
+```
+
+Use it inside the main component:
+
+```js
+<div>
+  <Header currentUser={currentUser} />
+  <Component {...pageProps} />
+</div>
+```
+
+6. Finally, add the signout page as `auth/signout.js`, make use of `useEffect` hook to make the request one time in the browser :
+
+```js
+import { useEffect } from "react";
+import useRequest from "../../hooks/use-request";
+import Router from "next/router";
+
+export default function signOut() {
+  const { doRequest } = useRequest({
+    url: "/api/users/signout",
+    method: "post",
+    body: {},
+    onSuccess: () => Router.push("/"),
+  });
+
+  useEffect(() => {
+    doRequest();
+  }, []);
+
+  return <div>Signing you out...</div>;
+}
+```
+
+7. The client app now looks like below with working authentication logic and it just be fine for now for our purposes.
+
+Home Page looks like:
+
+<p>
+<img src="../images/64-header-2.png" alt="drawing" width=800"/>
+</p>
+
+Sign in form looks like:
+
+<p>
+<img src="../images/65-header-3.png" alt="drawing" width=800"/>
+</p>
+
+Home page after user signed in looks like:
+
+<p>
+<img src="../images/66-header-4.png" alt="drawing" width=800"/>
+</p>
