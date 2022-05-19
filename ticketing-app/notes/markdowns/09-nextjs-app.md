@@ -1,6 +1,6 @@
 ## Integrating Next.js Client App
 
-For the front-end application, we will be using **Next.js** to create a **Server-side rendered** React application.
+For the front-end application, we will be using **Next.js** to create a **server-side rendered** React application.
 
 ### Implementing the SignUp Component
 
@@ -294,7 +294,7 @@ export default homePage;
 On the other hand, our setup looks like this:
 
 <p>
-<img src="../images/54-client-signin-4.png" alt="drawing" width=1200"/>
+<img src="../images/54-client-signin-4.png" alt="drawing" width=1300"/>
 </p>
 
 Because the domain is not automatically specified as "ticketing.dev" like the browser did, NodeJS http layer added localhost automatically. However, **this 127.0.0.1 is not the localhost of your computer**, **it is the localhost inside the K8s container**, and there is no one listening on port 80 on that container.
@@ -330,3 +330,125 @@ We can either make the request directly to the `auth` service in this case, or a
 <p>
 <img src="../images/59-client-signin-9.png" alt="drawing" width=600"/>
 </p>
+
+### When does getInitialProps get called?
+
+1. We know that we cannot fetch data inside React components while they are being rendered on the server side, because we would **not have time to wait for the request to resolve and change state during SSR**. So, getInitialProps is our opportunity to fetch data during rendering process. However, there are also **some particular scenarios when it gets called on the client-side**.
+
+<p>
+<img src="../images/60-client-signin-10.png" alt="drawing" width=400"/>
+</p>
+
+`getInitialProp` gets called on the client-side such as when we transition to the home page after successful sign-up, using `Router.push('/')`.
+
+<p>
+<img src="../images/61-client-signin-11.png" alt="drawing" width=400"/>
+</p>
+
+2. We can use a little silly method to figure out whether we are on the server or inside a browser. In addition, unlike the browser automatically specifying the host, we need to specify it manually to make the request from inside the server-side.
+
+```js
+import axios from "axios";
+
+const homePage = ({ currentUser }) => {
+  console.log(currentUser);
+  return <h1>Home Page!</h1>;
+};
+
+homePage.getInitialProps = async () => {
+  if (typeof window === "undefined") {
+    // we are on the server
+    const response = await axios.get(
+      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
+      {
+        headers: {
+          Host: "ticketing.dev",
+        },
+      }
+    );
+    return response.data;
+  } else {
+    // we are inside the browser
+    const response = await axios.get("/api/users/currentuser");
+    return response.data;
+  }
+};
+
+export default homePage;
+```
+
+Try to make the request by hard-refreshing the homepage, the `getInitialProps` will be called from server-side, but because we did not include the cookie unlike the browser automatically, the current user will be returned as `null`.
+
+3. We know that the request from the browser first visits `client` service, then we transfer the request to `auth` service to check whether the user is signed in. When the `getInitialProps` is called on the server-side, it is in fact provided with the `request` object, let's print the headers of the request from the client:
+
+```js
+homePage.getInitialProps = async ({ req }) => {
+  console.log(req.headers);
+...
+}
+```
+
+<p>
+<img src="../images/62-client-signin-12.png" alt="drawing" width=1200"/>
+</p>
+
+We can in fact both use the `host` and `cookie` headers when we do another request to the `auth` service. Another way is to simple copy all the headers to the next request, so that `client` service acts similar to a proxy to the `auth` service.
+
+```js
+homePage.getInitialProps = async ({ req }) => {
+  r;
+  if (typeof window === "undefined") {
+    // we are on the server
+    const response = await axios.get(
+      "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local/api/users/currentuser",
+      {
+        headers: req.headers,
+      }
+    );
+    return response.data;
+  } else {
+    // we are inside the browser
+    const response = await axios.get("/api/users/currentuser");
+    return response.data;
+  }
+};
+```
+
+4. The above code works, but we don't want to write all this code whenever we want to make a request from inside the server, so we abstract the code into a custom HTTP client. In `client/api/build-client.js`:
+
+```js
+import axios from "axios";
+
+export default async function buildClient({ req }) {
+  if (typeof window === "undefined") {
+    return axios.create({
+      baseURL:
+        "http://ingress-nginx-controller.ingress-nginx.svc.cluster.local",
+      headers: req.headers,
+    });
+  } else {
+    return axios;
+  }
+}
+```
+
+Now, `index.js` simplifies to:
+
+```js
+import buildClient from "../api/build-client";
+
+const homePage = ({ currentUser }) => {
+  console.log(currentUser);
+  return <h1>Home Page!</h1>;
+};
+
+homePage.getInitialProps = async (context) => {
+  const response = await (
+    await buildClient(context)
+  ).get("/api/users/currentuser");
+
+  return response.data;
+};
+
+export default homePage;
+```
