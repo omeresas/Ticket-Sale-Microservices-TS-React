@@ -498,7 +498,7 @@ AppComponent.getInitialProps = async (appContext) => {
 
 Try accessing the homepage on the browser, you should see "NOT signed in" even if your browser has a valid cookie. The reason is that **`getInitialProps` of page components do not get called when we define a `getInitialProps` on the main app component of Next.js.** This is just some weird part of Next.js.
 
-3. The solution we make is that we will call the `getInitialProps` of `homePage` component, or any component if it has a `getInitialProps` defined (eg. `signup` and `signin` components do not have `getInitialProps`),inside the `getInitialProps` of `homePage`.
+3. The solution we make is that we will call the `getInitialProps` of `homePage` component, or any component if it has a `getInitialProps` defined (eg. `signup` and `signin` components do not have `getInitialProps`),inside the `getInitialProps` of `AppComponent`.
 
 ```js
 AppComponent.getInitialProps = async (appContext) => {
