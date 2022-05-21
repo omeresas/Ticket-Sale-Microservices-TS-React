@@ -44,8 +44,8 @@ npm i typescript del-cli --save-dev
 5. In `package.json` include a script tag `build: "tsc"` to run tsc compiler. Also change below settings in `tsconfig.json`"
 
 ```json
-    "outDir": "./build", /* Specify an output folder for all emitted files. */
-    "declaration": true, /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
+    "outDir": "./build", // Specify an output folder for all emitted files.
+    "declaration": true, // Generate .d.ts files from TypeScript and JavaScript files in your project.
 ```
 
 6. Write some very simple TS code in `src/index.ts` and try converting it into JS by `npm run build`. Expect JS code and `index.d.ts` type definition file inside `build` folder. To have clean build each time, delete previous build by:
