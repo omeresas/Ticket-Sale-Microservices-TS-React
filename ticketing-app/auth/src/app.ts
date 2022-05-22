@@ -6,8 +6,7 @@ import { CurrentUserRouter } from "./routes/current-user";
 import { SignInRouter } from "./routes/signin";
 import { SignOutRouter } from "./routes/signout";
 import { SignUpRouter } from "./routes/signup";
-import { errorHandler } from "./middlewares/error-handler";
-import { NotFoundError } from "./errors/not-found-error";
+import { errorHandler, NotFoundError } from "@oetickets/common";
 
 const app = express();
 

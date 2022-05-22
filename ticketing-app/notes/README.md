@@ -13,4 +13,4 @@ This folder consists of notes created during the design and implementation of th
 7. [Request Validation, Current User Middleware and Sign In/Out Logic](markdowns/07-signIn-Out-currentUser.md)
 8. [Testing Auth Service with Jest and Supertest](markdowns/08-testing-auth-service.md)
 9. [Integrating Next.js Client App, SSR in K8s, Sign Up/In/Out Components](markdowns/09-nextjs-app.md)
-10. [Sharing Logic via NPM Modules](markdowns/10-sharing-logic-via-npm.md)
+10. [Creating, Publishing and Importing Our Own NPM Module](markdowns/10-sharing-logic-via-npm.md)
