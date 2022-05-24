@@ -123,4 +123,74 @@ export { signupCookie };
 
 4. **Implementation note for the third test:** To be able to decode the cookie, the `app.ts` of `tickets` service can utilize `currentUser` middleware we put inside our `@oetickets/common` package. It will decode the token into a `UserPayload`. Then, you can add `requireAuth` middleware from `common` package inside route handlers that you think requires authorization, such as creating a ticket like in this case.`requireAuth` middleware will throw `NotAuthorizedError` in cases where the request does not have a decoded and valid `UserPayload` as `currentUser` property of `Request` object.
 
-5.
+5. Let's add two tests about the attributes needed to create a ticket. Don't forget to add a valid JWT inside cookies to pass the authorization step. You can use `express-validator` and our `validateRequest` middleware to add neceessary validation rules to the route handler. Add them after `requireAuth` middleware so that the handler **fails fast**.
+
+```ts
+it("returns an error if an invalid title is provided", async () => {
+  const cookie = signupCookie();
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      price: 100,
+    })
+    .expect(400);
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      title: "",
+      price: 100,
+    })
+    .expect(400);
+});
+
+it("returns an error if an invalid price is provided", async () => {
+  const cookie = signupCookie();
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      title: "valid title",
+    })
+    .expect(400);
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      title: "valid title",
+      price: -10,
+    })
+    .expect(400);
+});
+```
+
+6. To test the creation of a ticket inside Mongo, or Mongo-memory-server as in this case, create a valid request and check whether the number of documents are incremented by one, or check actual properties of the created document. To implement this, add `src/models/Ticket.ts` to model it similar to a user model we prepared for the `auth` service. **Associate created tickets with their creator users using `req.currentUser.id`.**
+
+```ts
+it("creates a ticket with valid inputs", async () => {
+  const cookie = signupCookie();
+
+  let tickets = await Ticket.find({});
+  expect(tickets.length).toEqual(0);
+
+  const price = 100;
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", cookie)
+    .send({
+      title: "valid title",
+      price: price,
+    })
+    .expect(201);
+
+  tickets = await Ticket.find({});
+  expect(tickets.length).toEqual(1);
+  expect(tickets[0].price).toEqual(price);
+});
+```
