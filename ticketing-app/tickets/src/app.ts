@@ -4,6 +4,9 @@ import cookieSession from "cookie-session";
 
 import { errorHandler, NotFoundError, currentUser } from "@oetickets/common";
 import { CreateTicketRouter } from "./routes/create-ticket";
+import { GetTicketByIdRouter } from "./routes/get-ticket-byid";
+import { GetAllTicketsRouter } from "./routes/get-all-tickets";
+import { UpdateTicketRouter } from "./routes/update-ticket";
 
 const app = express();
 
@@ -19,6 +22,9 @@ app.use(
 app.use(currentUser);
 
 app.use(CreateTicketRouter);
+app.use(GetTicketByIdRouter);
+app.use(GetAllTicketsRouter);
+app.use(UpdateTicketRouter);
 
 app.all("*", async () => {
   throw new NotFoundError();

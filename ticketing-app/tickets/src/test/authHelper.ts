@@ -1,9 +1,10 @@
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 const signupCookie = () => {
   // Build a JWT payload
   const payload = {
-    id: "123123",
+    id: new mongoose.Types.ObjectId().toHexString(),
     email: "test@example.com",
   };
 

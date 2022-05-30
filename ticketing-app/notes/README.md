@@ -14,4 +14,4 @@ This folder consists of notes created during the design and implementation of th
 8. [Testing Auth Service with Jest and Supertest](markdowns/08-testing-auth-service.md)
 9. [Integrating Next.js Client App, SSR in K8s, Sign Up/In/Out Components](markdowns/09-nextjs-app.md)
 10. [Creating, Publishing and Importing Our Own NPM Module](markdowns/10-sharing-logic-via-npm.md)
-11. [Applying TDD to Implement Tickets Service](markdowns/11-ticketing-service.md)
+11. [Applying Test-First Approach to Implement Tickets Service](markdowns/11-ticketing-service.md)

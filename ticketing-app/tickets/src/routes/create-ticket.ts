@@ -23,9 +23,10 @@ router.post(
       price: price,
       userId: req.currentUser!.id,
     });
+
     await ticket.save();
 
-    return res.status(201).send({});
+    return res.status(201).send(ticket);
   }
 );
 
